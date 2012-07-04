@@ -1,0 +1,125 @@
+html{
+  font-family:"sans-serif",Verdana, sans-serif;
+}
+body{
+  /*background-color:#e6e6e6*/
+  background-color:#f2f2f2;
+}
+
+
+/******  Header  *******/
+#header{
+  //background-color:#0000FF; 
+  background-color:#61380b; 
+  padding: 20px 10px 20px 10px;
+  margin-bottom: 5px; 
+  border-bottom-style:solid;
+  border-bottom-color:#000000;
+  
+}
+
+#header ul{
+  list-style-type: none;
+  margin: 5px;
+  padding:5px;
+  }
+#header li{
+  float:right;
+}
+
+#header a{
+  display: block;
+  width: 80px;
+  color:white;
+  text-decoration: none;
+}
+
+#header a:hover{
+  //color:red;
+  text-decoration:underline;
+  font-weight:bold;
+}
+#header h3{
+  font-weight:normal;
+  font-size:16px;
+}
+
+/************************/
+
+
+/**** Footer ************/
+
+#footer{
+  border-top-style: solid;
+  border-top-color:#000000;
+  background-color: #5F4C0B;
+  font-size:12px;
+  display: block;
+  float:bottom;
+  clear:both;
+  //text-align:center;
+  //color:white;
+}
+
+
+/***********************/
+
+/*******Button **********/
+/*Eventually change this button style to display animage in background */
+a.button {
+  display: inline;
+  width: auto;
+  border-color:black;
+  background-color:grey;
+  text-decoration: none;
+  border-style:solid;
+  text-align:center;
+  padding:3px;
+}
+
+a.button :hover{
+  border-color:red;
+  font-weight:bold;
+}
+
+
+
+/**************************/
+
+
+/*********Table *********/
+table, tr, th, td{
+  border: solid;
+  border-collapse:collapse;
+}
+th{
+  background-color:red;
+}
+
+
+
+/**************************/
+
+
+/******sidebar************/
+#sidebar{
+  float:left;
+  background-color:#61380b;
+  display:inline;
+  color:white;
+  height:auto;
+
+}
+#sidebar a{
+  display: block;
+  width: 80px;
+  color:white;
+  text-decoration: none;
+}
+
+#sidebar a:hover{
+  text-decoration:underline;
+  font-weight:bold;
+}
+
+/************************/

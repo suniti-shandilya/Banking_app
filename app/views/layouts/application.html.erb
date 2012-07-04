@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BankingApp</title>
+
+  <link href="/assets/custom.css" media="all" rel="stylesheet" type="text/css" />
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<header>
+	<div id="header">
+		<a href="#"><h2>Bank</h2>
+			<!-- <img src="assets/Bank_Loan.jpg" alt="Bank!" width=100px height=100px/> -->
+		</a>
+		
+		 <div>
+				<ul>
+					
+					<li><%= link_to "Home", home_path%></li>
+					<li><%= link_to "Contact", contact_path %></li>
+					<li><%= link_to "About", about_path %></li>
+					<li><% if customer_signed_in?%>
+						<%= link_to "Sign Out", destroy_customer_session_path%>
+						<%elsif employee_signed_in?%>
+						<%=link_to "Sign Out", destroy_employee_session_path%>
+						<%else%>
+						<%= link_to "Sign In", home_path%>
+						<%end%>
+					</li>
+				</ul>
+			</div>
+		</div>	 
+ 
+	</header>
+	
+		<div id ="sidebar">
+			<%if customer_signed_in?%>
+			<%=  render 'layouts/sidebarCustomer' %>
+			<%elsif employee_signed_in?%>
+			<%=render 'layouts/sidebarEmployee'%>
+			<%end%>
+		</div>
+<%= yield %>
+<footer>
+		<div id="footer">
+			Website under construction.
+		</div>
+	</footer>
+</body>
+</html>

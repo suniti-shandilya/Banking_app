@@ -1,0 +1,27 @@
+<h1>Listing branches</h1>
+
+<table>
+  <tr>
+  	<th>Branch ID</th>
+    <th>Location</th>
+    <th>City</th>
+    <th>State</th>
+   </tr>
+
+<% @branches.each do |branch| %>
+  <tr>
+  	<td><%= branch.id%></td>
+    <td><%= branch.location %></td>
+    <td><%= branch.city %></td>
+    <td><%= branch.state %></td>
+ <!--  <td><%= link_to 'Show', branch %></td>
+    <td><%= link_to 'Edit', edit_branch_path(branch) %></td>
+    <td><%= link_to 'Destroy', branch, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%unless !employee_signed_in? || !current_employee.employeeRole == "manager"%>
+<%= link_to 'New Branch', new_branch_path %>
+<%end%>

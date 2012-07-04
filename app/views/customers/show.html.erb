@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Full Name:</b>
+  <%= @customer.fullName %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @customer.address %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @customer.phone%>
+</p>
+
+
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Back', customers_path %>
+<p>
+ <div>
+ 	<% if @accounts.size > 0 %>
+	<table>
+		<tr>
+			<th>Account ID</th>
+			<th>Current Balance</th>
+			<th>Minimum Balance</th>
+			</tr>
+	<% @accounts.each do |account| %>
+	<tr>
+		<td><%= link_to account.id, account %></td>
+		<td><%= account.balance %></td>
+		<td><%= account.minBalance %></td>
+	</tr>
+	<%end%>
+	</table>
+	<%end%>
+</div> 
+</p>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  branch_id: 1
+  fullName: MyString
+  address: MyString
+  phone: MyString
+  employeeRole: MyString
+
+two:
+  branch_id: 1
+  fullName: MyString
+  address: MyString
+  phone: MyString
+  employeeRole: MyString

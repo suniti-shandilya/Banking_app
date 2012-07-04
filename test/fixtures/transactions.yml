@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  account_id: 
+  type: 
+  method: 
+  description: 
+  employee_id: 1
+  amount: 1
+
+two:
+  account_id: 
+  type: 
+  method: 
+  description: 
+  employee_id: 1
+  amount: 1

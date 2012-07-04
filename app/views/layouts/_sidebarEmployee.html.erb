@@ -1,0 +1,27 @@
+
+<h3>Personal Info</h3>
+<hr/>
+<%=link_to "View", current_employee%><br/> 
+<%=link_to "Edit", edit_employee_path(current_employee.id)%><br/>
+<hr/>
+<h3>Accounts</h3>
+<hr/>
+<%=link_to "View all",accounts_path%><br/>
+<%=link_to "Edit", "#"%><br/>
+<%=link_to "Create New", new_account_path%><br/>
+<hr/>
+<h3>Transactions</h3>
+<hr/>
+<%=link_to "View", transactions_path%><br/>
+<%=link_to "Create", new_transaction_path%><br/>
+<hr/>
+<h3>Customers</h3>
+<hr/>
+<%=link_to "View", customers_path%><br/>
+<%=link_to "Create", new_customer_path%><br/>
+<hr/>
+<%if is_manager?%>
+<h3>Employees</h3>
+<%= link_to "View", employees_path%><br/>
+<%= link_to "Create", new_employee_path%><br/>
+<%end%>

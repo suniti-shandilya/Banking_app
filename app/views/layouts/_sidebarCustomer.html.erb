@@ -1,0 +1,17 @@
+
+<h3>Personal Info</h3>
+<hr/>
+<%= link_to "View", current_customer %><br/> 
+<%= link_to "Edit", edit_customer_path(current_customer.id) %><br/>
+<hr/> 
+<h3>Accounts</h3>
+<hr/>
+<%accounts = get_Customer_Account%>
+<%accounts.each do |acc| %>
+<%= link_to acc.id, acc%> <br/>
+<%end%>
+<link_to "acc 1","#"><br/>
+<link_to "acc 2", "#"><br/>
+<hr/>
+Hello <br/>
+		Goodbye <br/>

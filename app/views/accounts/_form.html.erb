@@ -1,0 +1,37 @@
+<%= form_for(@account) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :customer_id,"Customer ID" %><br />
+    <%= f.number_field :customer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :branch_id, "Branch ID" %><br />
+    <%= f.number_field :branch_id %>
+  </div>
+  <div class="field">
+    <%= f.label :accountType,"Account Type" %><br />
+    <%= f.text_field :accountType %>
+  </div>
+  <div class="field">
+    <%= f.label :balance, "Current Balance" %><br />
+    <%= f.number_field :balance %>
+  </div>
+  <div class="field">
+    <%= f.label :minBalance, "Minimum Balance" %><br />
+    <%= f.number_field :minBalance %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

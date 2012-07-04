@@ -11,11 +11,12 @@ class Employee < ActiveRecord::Base
   attr_accessible :address, :branch_id, :employeeRole, :fullName, :phone,:email
   
   belongs_to :branch
- # validates :loginID,:presence => true
+  
+  validates :loginID,:presence => true
   #validates :password, :presence => true
-#  validates :fullName, :presence => true
- # validates :address, :presence => true
-#  validates :phone, :presence => true
-#  validates :employeeRole,:presence => true
-#  validates :branch_id, :presence => true
+  validates :fullName, :presence => true
+  validates :address, :presence => true
+  validates :phone, :presence => true
+  validates :employeeRole,:presence => true
+  validates :branch_id, :presence => true
 end

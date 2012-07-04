@@ -19,9 +19,13 @@ class AccountsController < ApplicationController
   # GET /accounts/1.json
   def show
   
-  #Change in code required so that a customer can check only his account's details
+  #Changed - customer can check only his account's details
+ 
     @account = Account.find(params[:id])
-    
+    unless customer_signed_in? && @account.customer_id == current_customer.id
+      redirect_to current_customer, :notice => "Invalid Operation"
+      return
+    end
     #Make this a method in Transaction controller which will be called here
     @transactions = Transaction.where(:account_id => params[:id])
     

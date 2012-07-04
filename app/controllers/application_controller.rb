@@ -53,6 +53,7 @@ class ApplicationController < ActionController::Base
     if employee_signed_in?
       return true
     else
+      flash[:warning]='You need to be a bank employee to access this record.'
       redirect_to :controller => "static_pages", :action => "home"
     end
   end

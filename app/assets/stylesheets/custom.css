@@ -26,11 +26,13 @@ body{
   float:right;
 }
 
-#header a{
+#header .a{
   display: block;
-  width: 80px;
+  /*width: 80px;*/
   color:white;
   text-decoration: none;
+  padding: 5px;
+  margin: 5px;
 }
 
 #header a:hover{
@@ -120,3 +122,26 @@ th{
 }
 
 /************************/
+
+/****Error-explanation **/
+#error_explanation{
+	border: solid;
+	display: block;
+	border-color: red;
+}
+#error_explanation h2{
+	background-color: red;
+	color:white;
+}
+
+#error_explanation ul li{
+	color: red
+}
+
+/***Main body */
+#main{
+	display: block;
+	padding: 10px;
+	margin: 10 px;
+	border:solid;
+}

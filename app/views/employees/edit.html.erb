@@ -1,6 +1,54 @@
 <h1>Editing employee</h1>
 
-<%= render 'form' %>
+<%= form_for(@employee) do |f| %>
+  <% if @employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+
+      <ul>
+      <% @employee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="field">
+    <%= f.label :loginID, "User Name" %><br />
+    <%= f.text_field :loginID , :readonly => true%>
+  </div>
+   
+  <div class="field">
+    <%= f.label :branch_id %><br />
+    <%= f.number_field :branch_id%>
+  </div>
+  <div class="field">
+    <%= f.label :fullName %><br />
+    <%= f.text_field :fullName %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :employeeRole %><br />
+    <%= f.select(:employeeRole, options_for_select([['Non-manager', 'non-manager'],['Manager', "manager"]],@employee.employeeRole)) %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+   
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
 
 <%= link_to 'Show', @employee %> |
 <%= link_to 'Back', employees_path %>

@@ -1,6 +1,45 @@
 <h1>Editing customer</h1>
 
-<%= render 'form' %>
+
+<%= form_for(@customer) do |f| %>
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+   <%= f.label :loginID, "User Name" %><br />
+    <%= f.text_field :loginID , :readonly => true%>
+  </div>
+  <div class="field">
+    <%= f.label :email, "E-mail" %><br />
+    <%= f.email_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :fullName, "Full Name" %><br />
+    <%= f.text_field :fullName %>
+  </div>
+  <div class="field">
+    <%= f.label :address, "Address" %><br />
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, "Phone" %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<!-- <%= render 'form' %> -->
 
 <%= link_to 'Show', @customer %> |
 <%= link_to 'Back', customers_path %>

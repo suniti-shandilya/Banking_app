@@ -5,6 +5,6 @@ class Transaction < ActiveRecord::Base
   #validates :amount, :greater_than => 0
   validates :employee_id, :presence =>true
   validates :method, :presence => true
-  #validates :type, :presence=> true
+  validates :type, :presence=> true
   
 end

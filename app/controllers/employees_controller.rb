@@ -1,8 +1,8 @@
 class EmployeesController < ApplicationController
 
 #Add functionality to check for manager in certain cases
-  before_filter :authenticate_employee, only:[:show,:edit]
-  before_filter :authenticate_manager, only: [:index,:new,:create,:update,:destroy]
+  before_filter :authenticate_employee, only:[:show,:edit,:update]
+  before_filter :authenticate_manager, only: [:new,:create,:index,:destroy] #change index to employee's access
   
  # helper_method :current_employee
   # GET /employees
@@ -20,6 +20,11 @@ class EmployeesController < ApplicationController
   # GET /employees/1.json
   def show
   #Make changes so that an employee, unless manager, can see only his account details
+  
+    unless is_manager? || params[:id] == current_employee.id.to_s
+      redirect_to current_employee, :notice => "Invalid Operation"
+      return
+    end
     @employee = Employee.find(params[:id])
 
     respond_to do |format|
@@ -43,6 +48,10 @@ debugger
   # GET /employees/1/edit
   def edit
   #This should show only current_employee's details unless its a manager
+    unless is_manager? || params[:id] == current_employee.id.to_s
+      redirect_to current_employee, :notice => "Invalid Operation"
+      return
+    end
     @employee = Employee.find(params[:id])
   end
 
@@ -66,6 +75,10 @@ debugger
   # PUT /employees/1
   # PUT /employees/1.json
   def update
+  unless is_manager? || params[:id] == current_employee.id.to_s
+      redirect_to current_employee, :notice => "Invalid Operation"
+      return
+    end
     @employee = Employee.find(params[:id])
 
     respond_to do |format|

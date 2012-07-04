@@ -1,5 +1,8 @@
 class CustomersController < ApplicationController
 
+
+before_filter :authenticate_user
+before_filter :authenticate_employee, only: [:index,:create,:destroy,:new] 
   # GET /customer
   # GET /customer.json
   def index
@@ -14,7 +17,13 @@ class CustomersController < ApplicationController
   # GET /customer/1
   # GET /customers/1.json
   def show
+  debugger
+  unless customer_signed_in? && params[:id] == current_customer.id.to_s
+      redirect_to current_customer, :notice => "Invalid Operation"
+      return
+    end
     @customer = Customer.find(params[:id])
+    
     @accounts = Account.where(:customer_id => @customer.id)
    
     respond_to do |format|
@@ -36,6 +45,10 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/edit
   def edit
+    unless customer_signed_in? && params[:id] == current_customer.id.to_s
+      redirect_to current_customer, :notice => "Invalid Operation"
+      return
+    end
     @customer = Customer.find(params[:id])
   end
 
@@ -58,6 +71,10 @@ debugger
   # PUT /customers/1
   # PUT /customers/1.json
   def update
+    unless customer_signed_in? && params[:id] == current_customer.id.to_s
+      redirect_to current_customer, :notice => "Invalid Operation"
+      return
+    end
     @customer = Customer.find(params[:id])
 
     respond_to do |format|

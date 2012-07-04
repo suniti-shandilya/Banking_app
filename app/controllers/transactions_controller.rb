@@ -65,8 +65,11 @@ class TransactionsController < ApplicationController
       end
       
     rescue
-   flash[:notice] = "Transaction failed"
-   render 'new'
+      debugger
+   flash[:warning] = "Transaction failed"
+   debugger
+   redirect_to transactions_path, :notice => "Transaction Failed"
+   #render 'new'
   end
 end
   # PUT /transactions/1

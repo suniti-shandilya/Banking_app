@@ -34,71 +34,64 @@ class TransactionsController < ApplicationController
     end
   end
 
-  # GET /transactions/1/edit
-  def edit
-    @transaction = Transaction.find(params[:id])
-  end
-
   # POST /transactions
   # POST /transactions.json
   def create
-    debugger
     @transaction = Transaction.new(params[:transaction])
     debugger
     begin
-      if(@transaction.transType == "debit")
-        debit(@transaction.account_id,@transaction.amount)
-      elsif (@transaction.transType == "credit")
-        credit(@transaction.account_id,@transaction.amount)
-      else 
-        raise "Transaction failed"
-      end
-      
+      @transaction.conductTransaction
       respond_to do |format|
-      if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
-        format.json { render json: @transaction, status: :created, location: @transaction }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        if @transaction.save
+          format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+          format.json { render json: @transaction, status: :created, location: @transaction }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        end
       end
-      end
-      
-    rescue
-      debugger
-   flash[:warning] = "Transaction failed"
-   debugger
-   redirect_to transactions_path, :notice => "Transaction Failed"
-   #render 'new'
-  end
-end
-  # PUT /transactions/1
-  # PUT /transactions/1.json
-  def update
-    @transaction = Transaction.find(params[:id])
 
-    respond_to do |format|
-      if @transaction.update_attributes(params[:transaction])
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
+    rescue => error
+      flash[:warning] = error.message unless error.message.empty?
+      render 'new'
     end
   end
 
-  # DELETE /transactions/1
-  # DELETE /transactions/1.json
-  def destroy
-    @transaction = Transaction.find(params[:id])
-    @transaction.destroy
-
-    respond_to do |format|
-      format.html { redirect_to transactions_url }
-      format.json { head :no_content }
-    end
-  end
-  
-  
 end
+
+##### Unwanted code #################
+#
+#
+# # GET /transactions/1/edit
+# def edit
+# @transaction = Transaction.find(params[:id])
+# end
+#
+#
+# # PUT /transactions/1
+# # PUT /transactions/1.json
+# def update
+# @transaction = Transaction.find(params[:id])
+#
+# respond_to do |format|
+# if @transaction.update_attributes(params[:transaction])
+# format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
+# format.json { head :no_content }
+# else
+# format.html { render action: "edit" }
+# format.json { render json: @transaction.errors, status: :unprocessable_entity }
+# end
+# end
+# end
+#
+# # DELETE /transactions/1
+# # DELETE /transactions/1.json
+# def destroy
+# @transaction = Transaction.find(params[:id])
+# @transaction.destroy
+#
+# respond_to do |format|
+# format.html { redirect_to transactions_url }
+# format.json { head :no_content }
+# end
+# end

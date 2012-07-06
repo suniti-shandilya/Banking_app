@@ -1,9 +1,8 @@
 class AccountsController < ApplicationController
- 
+
   before_filter :authenticate_user
   before_filter :authenticate_employee!, only:[:new, :create,:edit,:update,:destroy,:index]
-
-
+  
   # GET /accounts
   # GET /accounts.json
   def index
@@ -18,20 +17,12 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.json
   def show
-  
-  #Changed - customer can check only his account's details
- 
     @account = Account.find(params[:id])
-    unless customer_signed_in? && @account.customer_id == current_customer.id
-      redirect_to current_customer, :notice => "Invalid Operation"
-      return
-    end
-    #Make this a method in Transaction controller which will be called here
-    @transactions = Transaction.where(:account_id => params[:id])
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @account }
+    if authenticateCustomerOperation(@account.customer_id)
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @account }
+      end
     end
   end
 
@@ -55,12 +46,12 @@ class AccountsController < ApplicationController
   # POST /accounts.json
   def create
     @account = Account.new(params[:account])
-
     respond_to do |format|
       if @account.save
         format.html { redirect_to @account, notice: 'Account was successfully created.' }
         format.json { render json: @account, status: :created, location: @account }
       else
+        debugger
         format.html { render action: "new" }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
@@ -94,6 +85,5 @@ class AccountsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
- 
+
 end

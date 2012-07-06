@@ -1,8 +1,7 @@
 class CustomersController < ApplicationController
 
-
-before_filter :authenticate_user
-before_filter :authenticate_employee, only: [:index,:create,:destroy,:new] 
+  before_filter :authenticate_user
+  before_filter :authenticate_employee, only: [:index,:create,:destroy,:new]
   # GET /customer
   # GET /customer.json
   def index
@@ -17,18 +16,12 @@ before_filter :authenticate_employee, only: [:index,:create,:destroy,:new]
   # GET /customer/1
   # GET /customers/1.json
   def show
-  debugger
-  unless customer_signed_in? && params[:id] == current_customer.id.to_s
-      redirect_to current_customer, :notice => "Invalid Operation"
-      return
-    end
-    @customer = Customer.find(params[:id])
-    
-    @accounts = Account.where(:customer_id => @customer.id)
-   
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @customer }
+    if authenticateCustomerOperation(params[:id])
+      @customer = Customer.find(params[:id])
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @customer }
+      end
     end
   end
 
@@ -45,18 +38,15 @@ before_filter :authenticate_employee, only: [:index,:create,:destroy,:new]
 
   # GET /customers/1/edit
   def edit
-    unless customer_signed_in? && params[:id] == current_customer.id.to_s
-      redirect_to current_customer, :notice => "Invalid Operation"
-      return
+    if authenticateCustomerOperation(params[:id])
+      @customer = Customer.find(params[:id])
     end
-    @customer = Customer.find(params[:id])
   end
 
   # POST /customers
   # POST /customers.json
   def create
     @customer = Customer.new(params[:customer])
-debugger
     respond_to do |format|
       if @customer.save
         format.html { redirect_to @customer, notice: 'customer was successfully created.' }
@@ -71,19 +61,16 @@ debugger
   # PUT /customers/1
   # PUT /customers/1.json
   def update
-    unless customer_signed_in? && params[:id] == current_customer.id.to_s
-      redirect_to current_customer, :notice => "Invalid Operation"
-      return
-    end
-    @customer = Customer.find(params[:id])
-
-    respond_to do |format|
-      if @customer.update_attributes(params[:customer])
-        format.html { redirect_to @customer, notice: 'customer was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+    if authenticateCustomerOperation(params[:id])
+      @customer = Customer.find(params[:id])
+      respond_to do |format|
+        if @customer.update_attributes(params[:customer])
+          format.html { redirect_to @customer, notice: 'customer was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @customer.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -99,5 +86,4 @@ debugger
       format.json { head :no_content }
     end
   end
-
 end

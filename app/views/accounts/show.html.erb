@@ -1,51 +1,61 @@
-<p id="notice"><%= notice %></p>
 
 <p>
-  <b>Customer ID:</b>
-  <%= @account.customer_id %>
+	<b>Customer ID:</b>
+	<%= @account.customer_id %>
 </p>
 
 <p>
-  <b>Branch ID:</b>
-  <%= @account.branch_id %>
+	<b>Customer Name:</b>
+	<%= @account.customer.fullName %>
+</p>
+
+
+<p>
+	<b>Branch ID:</b>
+	<%= @account.branch_id %>
 </p>
 
 <p>
-  <b>Account Type:</b>
-  <%= @account.accountType %>
+	<b>Branch Location:</b>
+	<%= @account.branch.location %>, <%= @account.branch.city %>
 </p>
 
 <p>
-  <b>Current Balance:</b>
-  <%= @account.balance %>
+	<b>Account Type:</b>
+	<%= @account.accountType %>
 </p>
 
 <p>
-  <b>Minnimum Balance:</b>
-  <%= @account.minBalance %>
+	<b>Current Balance:</b>
+	<%= @account.balance %>
 </p>
 
+<p>
+	<b>Minnimum Balance:</b>
+	<%= @account.minBalance %>
+</p>
 
 <%= link_to 'Edit', edit_account_path(@account) %> |
 <%= link_to 'Back', accounts_path %>
 
 <p>
-	<%if @transactions.size > 0%>
+	<%if @account.transactions.size > 0%>
 	<table id = "table">
 		<tr>
 			<th>Transaction ID</th>
 			<th>Transaction Type</th>
 			<th>Method</th>
 			<th>Amount</th>
-			</tr>
-		<% @transactions.each do |transac|%>
+		</tr>
+		
+		<% @account.transactions.each do |transac|%>
 		<tr>
-			<td><%=transac.id%></td>
-			<td><%=transac.transType%></td>
-			<td><%=transac.method%></td>
-			<td><%=transac.amount%></td>
+			<td><%= transac.id%></td>
+			<td><%= transac.transType%></td>
+			<td><%= transac.method%></td>
+			<td><%= transac.amount%></td>
 		</tr>
 		<%end%>
-		</table>
-		<%end%>
+	</table>
+	<%end%>
 </p>

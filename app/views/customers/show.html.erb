@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <b>Full Name:</b>
@@ -20,14 +19,14 @@
 <%= link_to 'Back', customers_path %>
 <p>
  <div>
- 	<% if @accounts.size > 0 %>
+ 	<% if @customer.accounts.size > 0 %>
 	<table>
 		<tr>
 			<th>Account ID</th>
 			<th>Current Balance</th>
 			<th>Minimum Balance</th>
 			</tr>
-	<% @accounts.each do |account| %>
+	<% @customer.accounts.each do |account| %>
 	<tr>
 		<td><%= link_to account.id, account %></td>
 		<td><%= account.balance %></td>

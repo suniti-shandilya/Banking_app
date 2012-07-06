@@ -1,10 +1,8 @@
 class EmployeesController < ApplicationController
 
-#Add functionality to check for manager in certain cases
   before_filter :authenticate_employee, only:[:show,:edit,:update]
-  before_filter :authenticate_manager, only: [:new,:create,:index,:destroy] #change index to employee's access
-  
- # helper_method :current_employee
+  before_filter :authenticate_manager, only: [:new,:create,:index,:destroy] #Moot - should employee have accessto index
+ 
   # GET /employees
   # GET /employees.json
   def index
@@ -19,26 +17,19 @@ class EmployeesController < ApplicationController
   # GET /employees/1
   # GET /employees/1.json
   def show
-  #Make changes so that an employee, unless manager, can see only his account details
-  
-    unless is_manager? || params[:id] == current_employee.id.to_s
-      redirect_to current_employee, :notice => "Invalid Operation"
-      return
-    end
-    @employee = Employee.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @employee }
+    if authenticateEmployeeOperation(params[:id])
+      @employee = Employee.find(params[:id])
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @employee }
+      end
     end
   end
 
   # GET /employees/new
   # GET /employees/new.json
   def new
-debugger
     @employee = Employee.new
-debugger
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @employee }
@@ -47,20 +38,15 @@ debugger
 
   # GET /employees/1/edit
   def edit
-  #This should show only current_employee's details unless its a manager
-    unless is_manager? || params[:id] == current_employee.id.to_s
-      redirect_to current_employee, :notice => "Invalid Operation"
-      return
+    if authenticateEmployeeOperation(params[:id])
+      @employee = Employee.find(params[:id])
     end
-    @employee = Employee.find(params[:id])
   end
 
   # POST /employees
   # POST /employees.json
   def create
-  debugger
     @employee = Employee.new(params[:employee])
-  debugger
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
@@ -75,19 +61,16 @@ debugger
   # PUT /employees/1
   # PUT /employees/1.json
   def update
-  unless is_manager? || params[:id] == current_employee.id.to_s
-      redirect_to current_employee, :notice => "Invalid Operation"
-      return
-    end
-    @employee = Employee.find(params[:id])
-
-    respond_to do |format|
-      if @employee.update_attributes(params[:employee])
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
+    if authenticateEmployeeOperation(params[:id])
+      @employee = Employee.find(params[:id])
+      respond_to do |format|
+        if @employee.update_attributes(params[:employee])
+          format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @employee.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -103,5 +86,14 @@ debugger
       format.json { head :no_content }
     end
   end
-  
+
+  private
+
+  def authenticateEmployeeOperation(id)
+    unless is_manager? || id == current_employee.id.to_s
+      redirect_to current_employee, :notice => "Invalid Operation"
+    return false
+    end
+    return true
+  end
 end

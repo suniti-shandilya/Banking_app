@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(:version => 20120702154012) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "customer_id"
-    t.integer  "branch_id"
     t.string   "accountType"
     t.integer  "balance"
     t.integer  "minBalance"
+    t.integer  "branch_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -52,11 +52,12 @@ ActiveRecord::Schema.define(:version => 20120702154012) do
   add_index "customers", ["reset_password_token"], :name => "index_customers_on_reset_password_token", :unique => true
 
   create_table "employees", :force => true do |t|
-    t.integer  "branch_id"
     t.string   "fullName"
     t.string   "address"
     t.string   "phone"
     t.string   "employeeRole"
+    t.string   "email"
+    t.integer  "branch_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "loginID",                :default => "", :null => false
@@ -75,12 +76,12 @@ ActiveRecord::Schema.define(:version => 20120702154012) do
   add_index "employees", ["reset_password_token"], :name => "index_employees_on_reset_password_token", :unique => true
 
   create_table "transactions", :force => true do |t|
-    t.integer  "account_id"
-    t.string   "type"
+    t.string   "transType"
     t.string   "method"
     t.string   "description"
-    t.integer  "employee_id"
     t.integer  "amount"
+    t.integer  "account_id"
+    t.integer  "employee_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

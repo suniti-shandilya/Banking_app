@@ -5,7 +5,7 @@ class Customer < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   #devise :database_authenticatable, :encryptable, :encryptor => :sha1base64, :authentication_keys => [:loginID]
   
-  devise :database_authenticatable,:rememberable, :trackable, :validatable
+  devise :database_authenticatable
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email,:password, :password_confirmation, :remember_me, :phone,:fullName,:address,:loginID
   # attr_accessible :title, :body
